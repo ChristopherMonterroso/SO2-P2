@@ -78,8 +78,6 @@ El algoritmo **Tamalloc** sigue estos pasos:
 * **Lazy-Zeroing**: El controlador de fallos de página intercepta el primer acceso a cada página y la inicializa en cero.
 * **Estadísticas de Uso**: Dos syscalls personalizadas permiten recopilar y mostrar estadísticas sobre el uso de memoria a nivel de proceso y sistema.
 
-
-
 ## Resultados y análisis
 
 Pruebas realizadas con scripts  demostraron que la memoria reservada no se asigna físicamente hasta que es accedida. Esto se reflejó en la reducción del uso de memoria RSS inicial, lo que permite un mejor manejo del over-commit.
@@ -98,14 +96,12 @@ Pruebas realizadas con scripts  demostraron que la memoria reservada no se asign
 ## Problemas encontrados
 
 
-| Problema                                 | Causa                                                               | Solución                                                                                                 |
-| ---------------------------------------- | ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| Fallas en la integración conel kernel  | Incompatibilidad con estructuras de<br /> memoria<br /> existentes  | Ajustes en el manejo de mmap y control de fallos de página                                               |
-| Estadísticas inconsistentes en syscalls | Errores en la recopilación de datos <br />al nivel<br />de proceso | Revisión del acceso a estructuras internas del kernel y <br />corrección<br />de las llamadas a syscall |
-
+| Problema                                 | Causa                                                              | Solución                                                                                                |
+| ---------------------------------------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
+| Fallas en la integración conel kernel  | Incompatibilidad con estructuras de<br /> memoria<br /> existentes | Ajustes en el manejo de mmap y control de fallos de página                                              |
+| Estadísticas inconsistentes en syscalls | Errores en la recopilación de datos<br />al nivel<br />de proceso | Revisión del acceso a estructuras internas del kernel y<br />corrección<br />de las llamadas a syscall |
 
 ## Crónograma
-
 
 
 | Día  | Actividad                                                                               |
@@ -114,6 +110,18 @@ Pruebas realizadas con scripts  demostraron que la memoria reservada no se asign
 | 21/12 | Implementación inicial del algoritmo Tamalloc con lazy-zeroing y pruebas básicas.     |
 | 22/12 | Desarrollo e integración de syscalls para estadísticas y optimización del algoritmo. |
 | 25/12 | Pruebas avanzadas, resolución de errores y elaboración del informe técnico.          |
+
+
+### Explicación de Actividades
+
+**Día 1:** Se investigaron algoritmos de asignación de memoria existentes como malloc, calloc y mmap, además de comprender las banderas necesarias para la reserva diferida de páginas. También se configuró el entorno de desarrollo en Linux para compilar el kernel modificado.
+
+**Día 2:** Se diseñó e implementó el algoritmo Tamalloc, incluyendo el manejador de fallos de página para inicializar las páginas en cero al primer acceso.
+
+**Día 3:** Se programaron las syscalls necesarias para recopilar estadísticas de memoria y se probaron los módulos para verificar su correcto funcionamiento.
+
+**Día 4:** Se realizaron pruebas finales para validar el comportamiento esperado del algoritmo. Además, se analizaron los resultados obtenidos, se documentaron los errores y sus soluciones, y se redactó el informe final.
+
 
 ## Reflexión Personal
 
